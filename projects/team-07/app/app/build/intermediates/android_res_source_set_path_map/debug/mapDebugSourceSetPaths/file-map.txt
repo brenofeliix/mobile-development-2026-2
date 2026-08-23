@@ -1,0 +1,8 @@
+com.LucasDosSantosSeteOliveira.aplicativomasterblaster.app-pngs-0 C:\Users\aluno\Documents\GitHub\mobile-development-2026-2\projects\team-07\app\app\build\generated\res\pngs\debug
+com.LucasDosSantosSeteOliveira.aplicativomasterblaster.app-updated_navigation_xml-1 C:\Users\aluno\Documents\GitHub\mobile-development-2026-2\projects\team-07\app\app\build\generated\updated_navigation_xml\debug
+com.LucasDosSantosSeteOliveira.aplicativomasterblaster.app-packageDebugResources-2 C:\Users\aluno\Documents\GitHub\mobile-development-2026-2\projects\team-07\app\app\build\intermediates\incremental\debug\packageDebugResources\merged.dir
+com.LucasDosSantosSeteOliveira.aplicativomasterblaster.app-packageDebugResources-3 C:\Users\aluno\Documents\GitHub\mobile-development-2026-2\projects\team-07\app\app\build\intermediates\incremental\debug\packageDebugResources\stripped.dir
+com.LucasDosSantosSeteOliveira.aplicativomasterblaster.app-debug-4 C:\Users\aluno\Documents\GitHub\mobile-development-2026-2\projects\team-07\app\app\build\intermediates\merged_res\debug\mergeDebugResources
+com.LucasDosSantosSeteOliveira.aplicativomasterblaster.app-debug-5 C:\Users\aluno\Documents\GitHub\mobile-development-2026-2\projects\team-07\app\app\src\debug\res
+com.LucasDosSantosSeteOliveira.aplicativomasterblaster.app-main-6 C:\Users\aluno\Documents\GitHub\mobile-development-2026-2\projects\team-07\app\app\src\main\res
+gradleHome-0 C:\Users\aluno\.gradle
