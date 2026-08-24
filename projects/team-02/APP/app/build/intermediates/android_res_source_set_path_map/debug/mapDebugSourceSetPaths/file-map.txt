@@ -1,0 +1,8 @@
+com.PedroG.treine.app-pngs-0 C:\Users\Discente\Documents\GitHub\mobile-development-2026-2\projects\team-02\APP\app\build\generated\res\pngs\debug
+com.PedroG.treine.app-updated_navigation_xml-1 C:\Users\Discente\Documents\GitHub\mobile-development-2026-2\projects\team-02\APP\app\build\generated\updated_navigation_xml\debug
+com.PedroG.treine.app-packageDebugResources-2 C:\Users\Discente\Documents\GitHub\mobile-development-2026-2\projects\team-02\APP\app\build\intermediates\incremental\debug\packageDebugResources\merged.dir
+com.PedroG.treine.app-packageDebugResources-3 C:\Users\Discente\Documents\GitHub\mobile-development-2026-2\projects\team-02\APP\app\build\intermediates\incremental\debug\packageDebugResources\stripped.dir
+com.PedroG.treine.app-debug-4 C:\Users\Discente\Documents\GitHub\mobile-development-2026-2\projects\team-02\APP\app\build\intermediates\merged_res\debug\mergeDebugResources
+com.PedroG.treine.app-debug-5 C:\Users\Discente\Documents\GitHub\mobile-development-2026-2\projects\team-02\APP\app\src\debug\res
+com.PedroG.treine.app-main-6 C:\Users\Discente\Documents\GitHub\mobile-development-2026-2\projects\team-02\APP\app\src\main\res
+gradleHome-0 C:\Users\Discente\.gradle
