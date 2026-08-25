@@ -4,7 +4,7 @@
 * **Número da equipe:** Team 08
 * **Membro da equipe::** 
 * Ítalo Huan (@itimt)
-* Rayse
+* Rayse Kawane (@Rays3107)
 
 ## Development Environment Status
 * **Git Configuration:** Configured & operational (AC-02)
