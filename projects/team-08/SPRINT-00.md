@@ -21,6 +21,5 @@
 - *Alta lentidão na máquina da UNEMAT, pelo emulador consumir muita memoria.
 
 ## Evidencia de aplicativo Android
-*(Substitua o arquivo abaixo pela sua imagem de print salva dentro de projects/team-08/)*
 
 ![App Execution Screen](app_screenshot.png)
