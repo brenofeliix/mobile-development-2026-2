@@ -22,4 +22,4 @@
 
 ## Evidencia de aplicativo Android
 
-![App Execution Screen](app_screenshot.png)
+![App Execution Screen](evidence/sprint-00/app_screenshot.png)
