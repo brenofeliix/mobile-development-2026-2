@@ -117,7 +117,7 @@ O aplicativo deve usar, nos modais, apenas **termos do usuário**, sem termos in
 - Os novos estados devem usar `remember { mutableStateOf(...) }`, conforme o tema da Sprint 02.
 - Os novos estados devem ser criados **dentro de cada modal**, para que reiniciem automaticamente quando o modal é fechado.
 - O guia de cadastro permanece **dentro do `AlertDialog` existente**: as etapas são conteúdo de um único modal, controlado pelo estado `registerStep`. **Nenhuma tela, rota ou arquivo novo** é criado.
-- A implementação deve ficar restrita a `projects/team-05/app/`, alterando somente `WelcomeScreen.kt`.
+- A implementação deve ficar restrita a `projects/team-05/app/`: a **lógica** muda somente no `WelcomeScreen.kt`. Os demais arquivos do app podem receber **apenas comentários didáticos**, sem alterar nenhuma linha de código.
 
 ### Non-Functional Requirements
 
@@ -127,7 +127,7 @@ O aplicativo deve usar, nos modais, apenas **termos do usuário**, sem termos in
 
 ### Files or Modules That Must Not Be Modified
 
-- `AndroidManifest.xml`, `MainActivity.kt`, `Color.kt`, `Type.kt`, `Theme.kt` e os arquivos do Gradle.
+- `AndroidManifest.xml`, `MainActivity.kt`, `Color.kt`, `Type.kt`, `Theme.kt` e os arquivos do Gradle: **nenhuma linha de código** pode ser alterada; apenas comentários didáticos são permitidos.
 - Pastas de outros times (`projects/team-XX/`) e arquivos da raiz do repositório.
 
 ---
@@ -267,7 +267,7 @@ O aplicativo compila com `./gradlew assembleDebug`, executa no emulador e suport
 
 ### Components to Create or Modify
 
-Somente `projects/team-05/app/app/src/main/java/com/team05/sarc/ui/screens/WelcomeScreen.kt`:
+Código alterado somente em `projects/team-05/app/app/src/main/java/com/team05/sarc/ui/screens/WelcomeScreen.kt` (os demais arquivos do app recebem apenas comentários didáticos):
 
 1. **Modal "Solicitação de Cadastro"**
    - lista com as 3 etapas (título + texto de cada uma);
@@ -280,7 +280,7 @@ Somente `projects/team-05/app/app/src/main/java/com/team05/sarc/ui/screens/Welco
    - cada `PriorityBadge` recebe `expanded` e `onClick`;
    - `containerColor = MaterialTheme.colorScheme.surface`.
 3. **`PriorityBadge`**
-   - cartão clicável (`Modifier.clickable`), com altura mínima de 48 dp;
+   - cartão clicável (`Card(onClick = ...)`, que já traz o efeito de toque do Material 3), com altura mínima de 48 dp;
    - seta ▼/▲ (`Icons.Default.KeyboardArrowDown` / `KeyboardArrowUp`);
    - descrição exibida com `AnimatedVisibility` somente quando `expanded` for verdadeiro;
    - borda de 2 dp com a cor cheia do nível quando aberto;
@@ -450,7 +450,7 @@ Task:
 [DESCRIBE ONE SPECIFIC TASK]
 
 Constraints:
-Only WelcomeScreen.kt; no new dependencies; states with remember { mutableStateOf() }
+Logic changes only in WelcomeScreen.kt (other files: comments only); no new dependencies; states with remember { mutableStateOf() }
 created inside each dialog; no new screens, routes or navigation.
 
 Out of scope:
