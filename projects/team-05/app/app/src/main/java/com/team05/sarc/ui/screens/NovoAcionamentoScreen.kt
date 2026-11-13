@@ -8,6 +8,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
+import androidx.compose.ui.graphics.Color
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
@@ -76,7 +79,7 @@ private fun validar(nivel: String, turma: String, sala: String, situacao: String
  */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun NovoAcionamentoScreen(onVoltar: () -> Unit = {}, onEnviar: (String) -> Unit = {}) {
+fun NovoAcionamentoScreen(onVoltar: () -> Unit = {}, onEnviar: (String) -> Boolean = { false }) {
     // FR-02: os 4 campos, guardados em rememberSaveable (sobrevivem a girar o celular).
     var nivel by rememberSaveable { mutableStateOf("") }
     var turma by rememberSaveable { mutableStateOf("") }
@@ -84,6 +87,7 @@ fun NovoAcionamentoScreen(onVoltar: () -> Unit = {}, onEnviar: (String) -> Unit 
     var situacao by rememberSaveable { mutableStateOf("") }
     var tentouEnviar by rememberSaveable { mutableStateOf(false) } // Avisos só depois do 1º "Enviar".
     var aceito by rememberSaveable { mutableStateOf(false) }       // Mostra o aviso de sucesso.
+    var notificou by rememberSaveable { mutableStateOf(false) }    // Sprint 06: true se a notificação saiu.
 
     val erros = validar(nivel, turma, sala, situacao) // Reconferido a cada mudança: o aviso some ao corrigir.
     // A mensagem pronta do protocolo (usada no aviso de sucesso e salva no banco na Sprint 05).
@@ -142,7 +146,7 @@ fun NovoAcionamentoScreen(onVoltar: () -> Unit = {}, onEnviar: (String) -> Unit 
             Button(
                 onClick = {
                     tentouEnviar = true
-                    if (!erros.temErro) { onEnviar(mensagem); aceito = true } // FR-04 e Sprint 05 (FR-02): só aceita e salva se não há erro.
+                    if (!erros.temErro) { notificou = onEnviar(mensagem); aceito = true } // FR-04 e Sprint 05 (FR-02): só aceita e salva se não há erro.
                 },
                 modifier = Modifier.weight(1f)
             ) { Text("Enviar") }
@@ -154,7 +158,17 @@ fun NovoAcionamentoScreen(onVoltar: () -> Unit = {}, onEnviar: (String) -> Unit 
         AlertDialog(
             onDismissRequest = onVoltar,
             title = { Text("Acionamento pronto") },
-            text = { Text(mensagem) },
+            text = {
+                Column {
+                    Text(mensagem)
+                    Spacer(Modifier.height(12.dp))
+                    // Sprint 06 (FR-03 e FR-04): sucesso ou aviso amarelo de notificações bloqueadas.
+                    if (notificou) Text("✅ Notificação enviada ao aparelho.")
+                    else Box(Modifier.background(Color(0xFFFFF3CD)).padding(8.dp)) {
+                        Text("⚠️ Notificações desativadas: o acionamento foi salvo, mas sem alerta no aparelho.", color = Color(0xFF664D03))
+                    }
+                }
+            },
             confirmButton = { TextButton(onClick = onVoltar) { Text("OK") } }
         )
     }

@@ -1,7 +1,14 @@
 package com.team05.sarc
 
 // Importação das ferramentas do Android para criar a "janela" principal do aplicativo.
+import android.Manifest
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.runtime.LaunchedEffect
+import com.team05.sarc.notificacao.NotificacaoSarc
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -16,6 +23,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.navigation.compose.NavHost
 import com.team05.sarc.data.AcionamentoDatabase
@@ -41,6 +51,8 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState) // Executa a preparação padrão do Android antes do nosso código.
 
+        NotificacaoSarc.criarCanal(applicationContext) // Sprint 06 (FR-01): canal da notificação.
+
         enableEdgeToEdge() // Permite que o app desenhe de ponta a ponta, inclusive atrás da barra de status.
 
         // A partir daqui, o conteúdo da tela é desenhado com Jetpack Compose (e não com XML).
@@ -57,6 +69,8 @@ class MainActivity : ComponentActivity() {
                     // Sprint 05: abre o banco (uma vez) e cria os "bastidores" onde ele trabalha sem travar a tela.
                     val dao = remember { AcionamentoDatabase.abrir(applicationContext).dao() }
                     val scope = rememberCoroutineScope()
+                    // Sprint 06: só pede a permissão uma vez por abertura do app (não a cada volta ao Painel).
+                    var pediuPermissao by rememberSaveable { mutableStateOf(false) }
 
                     // O NavHost é o "mapa" das telas: 3 rotas, começando no Login ("welcome").
                     NavHost(navController = navController, startDestination = "welcome") {
@@ -73,6 +87,16 @@ class MainActivity : ComponentActivity() {
                         composable("home") {
                             // Sprint 05: "assina" a tabela; a lista chega atualizada sozinha a cada mudança.
                             val acionamentos by dao.listarTodos().collectAsState(initial = emptyList())
+                            // Sprint 06 (FR-01): ao abrir o Painel, pede a permissão de notificação (Android 13+).
+                            val pedirPermissao = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { }
+                            LaunchedEffect(Unit) {
+                                if (!pediuPermissao && Build.VERSION.SDK_INT >= 33 &&
+                                    checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED
+                                ) {
+                                    pediuPermissao = true
+                                    pedirPermissao.launch(Manifest.permission.POST_NOTIFICATIONS)
+                                }
+                            }
                             HomeDocenteScreen(
                                 // "Sair" tira o painel da pilha e volta ao Login.
                                 onSair = { navController.popBackStack() },
@@ -93,6 +117,8 @@ class MainActivity : ComponentActivity() {
                                     scope.launch {
                                         dao.salvar(AcionamentoEntity(mensagem = msg, dataHora = System.currentTimeMillis()))
                                     }
+                                    // Sprint 06 (FR-02): dispara a notificação; true = saiu, false = bloqueada.
+                                    NotificacaoSarc.enviar(applicationContext, msg)
                                 }
                             )
                         }
