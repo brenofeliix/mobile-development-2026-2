@@ -3,6 +3,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- Sprint 06: permissão para mostrar notificações (o Android 13+ pergunta ao professor). -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
     <!-- Configurações gerais do aplicativo inteiro. -->
     <application
         android:allowBackup="true"
