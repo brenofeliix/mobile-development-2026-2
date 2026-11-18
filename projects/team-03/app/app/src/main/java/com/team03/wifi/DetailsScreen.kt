@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.sp
 @Composable
 fun DetailsScreen(
     status: SignalStatus,
+    dbm: Int,
     onBack: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -55,7 +56,7 @@ fun DetailsScreen(
         ) {
             DetailRow(label = "Status", value = status.label, valueColor = status.color)
             Spacer(modifier = Modifier.height(12.dp))
-            DetailRow(label = "Intensidade", value = "${status.dbm} dBm", valueColor = Color.White)
+            DetailRow(label = "Intensidade", value = "$dbm dBm", valueColor = Color.White)
             Spacer(modifier = Modifier.height(12.dp))
             Text(text = "Recomendação", color = TextGray, fontSize = 12.sp)
             Spacer(modifier = Modifier.height(4.dp))
