@@ -22,5 +22,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Wifi"
+rootProject.name = "Wiflux"
 include(":app")
