@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "386891513366",
+    "project_id": "doacaopet-add60",
+    "storage_bucket": "doacaopet-add60.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:386891513366:android:71f207f237907937237f37",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQehxSzum_hmaiE0AjVELobwvScbSEVrU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
