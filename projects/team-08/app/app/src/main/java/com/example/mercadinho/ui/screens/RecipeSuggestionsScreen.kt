@@ -57,6 +57,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.example.mercadinho.data.MarketPriceComparator
+import com.example.mercadinho.data.NotaMtRecipePricing
 import com.example.mercadinho.data.RecipeItem
 import com.example.mercadinho.data.RecipeRepository
 import com.example.mercadinho.data.ShoppingRepository
@@ -339,6 +341,7 @@ fun RecipeSuggestionsScreen(
                         items(state.recipes) { recipe ->
                             RecipeCard(
                                 recipe = recipe,
+                                isOffline = simulateOffline,
                                 onAddIngredients = { ingredients ->
                                     val count = shoppingRepository.addItemsFromRecipe(ingredients)
                                     scope.launch {
@@ -364,9 +367,19 @@ fun RecipeSuggestionsScreen(
 @Composable
 private fun RecipeCard(
     recipe: RecipeItem,
+    isOffline: Boolean,
     onAddIngredients: (List<String>) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val context = LocalContext.current
+    val pricing = remember(recipe.id, isOffline) {
+        MarketPriceComparator.getPricingWithNotaMtCache(
+            context = context,
+            recipeId = recipe.id,
+            forceOffline = isOffline
+        )
+    }
+
     Card(
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(
@@ -445,6 +458,129 @@ private fun RecipeCard(
                         color = MaterialTheme.colorScheme.outline
                     )
                 }
+
+                // Cotação em Rondonópolis com Cache Offline da Nota MT
+                val quotes = pricing.quotes
+                val bestQuote = quotes.firstOrNull { it.isBestPrice } ?: quotes.firstOrNull()
+                val worstQuote = quotes.maxByOrNull { it.price }
+
+                Spacer(modifier = Modifier.height(10.dp))
+
+                Surface(
+                    color = if (pricing.isFromOfflineCache) {
+                        MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.6f)
+                    } else {
+                        MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.35f)
+                    },
+                        shape = RoundedCornerShape(12.dp),
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Column(modifier = Modifier.padding(12.dp)) {
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                modifier = Modifier.fillMaxWidth()
+                            ) {
+                                Text(
+                                    text = "📍 Cotação Rondonópolis (Base Nota MT)",
+                                    style = MaterialTheme.typography.labelMedium,
+                                    fontWeight = FontWeight.Bold,
+                                    color = MaterialTheme.colorScheme.primary
+                                )
+                                Surface(
+                                    color = if (pricing.isFromOfflineCache) {
+                                        MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.7f)
+                                    } else {
+                                        MaterialTheme.colorScheme.primary.copy(alpha = 0.15f)
+                                    },
+                                    shape = RoundedCornerShape(6.dp)
+                                ) {
+                                    Text(
+                                        text = if (pricing.isFromOfflineCache) "Cache Offline" else "Online Sefaz",
+                                        style = MaterialTheme.typography.labelSmall,
+                                        color = if (pricing.isFromOfflineCache) {
+                                            MaterialTheme.colorScheme.onErrorContainer
+                                        } else {
+                                            MaterialTheme.colorScheme.primary
+                                        },
+                                        modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp),
+                                        fontWeight = FontWeight.Bold
+                                    )
+                                }
+                            }
+
+                            Spacer(modifier = Modifier.height(4.dp))
+                            Text(
+                                text = if (pricing.isFromOfflineCache) {
+                                    "🟡 ${pricing.lastSyncTimestamp}"
+                                } else {
+                                    "🟢 ${pricing.lastSyncTimestamp}"
+                                },
+                                style = MaterialTheme.typography.labelSmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+
+                            Spacer(modifier = Modifier.height(8.dp))
+
+                            quotes.forEach { quote ->
+                                Row(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(vertical = 2.dp),
+                                    horizontalArrangement = Arrangement.SpaceBetween,
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    Row(verticalAlignment = Alignment.CenterVertically) {
+                                        Text(
+                                            text = "• ${quote.marketName}",
+                                            style = MaterialTheme.typography.bodySmall,
+                                            fontWeight = if (quote.isBestPrice) FontWeight.Bold else FontWeight.Normal
+                                        )
+                                        if (quote.tag.isNotBlank()) {
+                                            Spacer(modifier = Modifier.width(6.dp))
+                                            Surface(
+                                                color = if (quote.isBestPrice) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surfaceVariant,
+                                                shape = RoundedCornerShape(4.dp)
+                                            ) {
+                                                Text(
+                                                    text = quote.tag,
+                                                    style = MaterialTheme.typography.labelSmall,
+                                                    color = if (quote.isBestPrice) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant,
+                                                    modifier = Modifier.padding(horizontal = 4.dp, vertical = 1.dp)
+                                                )
+                                            }
+                                        }
+                                    }
+                                    Text(
+                                        text = String.format(java.util.Locale.getDefault(), "R$ %.2f", quote.price),
+                                        style = MaterialTheme.typography.bodySmall,
+                                        fontWeight = if (quote.isBestPrice) FontWeight.Bold else FontWeight.Normal,
+                                        color = if (quote.isBestPrice) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface
+                                    )
+                                }
+                            }
+
+                            if (bestQuote != null && worstQuote != null && worstQuote.price > bestQuote.price) {
+                                val diff = worstQuote.price - bestQuote.price
+                                Spacer(modifier = Modifier.height(6.dp))
+                                HorizontalDivider(
+                                    color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f)
+                                )
+                                Spacer(modifier = Modifier.height(6.dp))
+                                Text(
+                                    text = String.format(
+                                        java.util.Locale.getDefault(),
+                                        "💡 Economia de até R$ %.2f comprando no %s!",
+                                        diff,
+                                        bestQuote.marketName
+                                    ),
+                                    style = MaterialTheme.typography.labelSmall,
+                                    color = MaterialTheme.colorScheme.secondary,
+                                    fontWeight = FontWeight.Bold
+                                )
+                            }
+                        }
+                    }
 
                 Spacer(modifier = Modifier.height(12.dp))
 
