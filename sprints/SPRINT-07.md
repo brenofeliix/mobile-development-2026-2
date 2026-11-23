@@ -67,7 +67,10 @@ As imagens são reduzidas e armazenadas como Base64 nos dados do pet. Validar ta
 
 projects/team-10/evidence
 
-## 5. Evidências já recebidas da execução do aplicativo\n\nA equipe enviou capturas reais que mostram a tela inicial com a lista de pets, duas telas de detalhes, filtro de favoritos, confirmação de solicitação e tela Minhas Solicitações. Os arquivos estão em `evidence/sprint-07/`. Essas capturas comprovam visualmente somente os estados exibidos; não comprovam, isoladamente, persistência, autenticação, regras do Firebase, testes negativos ou estabilidade de todo o fluxo. Consulte `evidence/sprint-07/final-validation.md`.\n\n## 6. Testes de regressão a executar
+## 5. Evidências
+ já recebidas da execução do aplicativo\n\nA equipe enviou capturas reais que mostram a tela inicial com a lista de pets, duas telas de detalhes, filtro de favoritos, confirmação de solicitação e tela Minhas Solicitações. Os arquivos estão em `evidence/sprint-07/`. Essas capturas comprovam visualmente somente os estados exibidos; não comprovam, isoladamente, persistência, autenticação, regras do Firebase, testes negativos ou estabilidade de todo o fluxo. Consulte `evidence/sprint-07/final-validation.md`.\n\n
+
+## 6. Testes de regressão a executar
 
 Preencher o resultado somente depois de executar cada cenário no aplicativo conectado ao Firebase.
 
