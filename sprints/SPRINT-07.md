@@ -73,23 +73,23 @@ Preencher o resultado somente depois de executar cada cenário no aplicativo con
 
 | ID | Cenário | Resultado esperado | Resultado real |
 |---|---|---|---|
-| T01 | Abrir o aplicativo sem sessão ativa | Splash direciona para login | PENDENTE |
-| T02 | Cadastrar conta com dados válidos | Conta criada e perfil gravado | PENDENTE |
-| T03 | Tentar cadastrar com campos vazios/e-mail inválido/senha curta | Mensagem de validação; não prossegue | PENDENTE |
-| T04 | Entrar com credenciais válidas | Abre a tela inicial | PENDENTE |
-| T05 | Entrar com credenciais inválidas | Exibe erro sem fechar o app | PENDENTE |
-| T06 | Carregar pets disponíveis | Lista os pets do Firestore | PENDENTE |
-| T07 | Filtrar cachorros e gatos | Exibe apenas a espécie selecionada | PENDENTE |
-| T08 | Favoritar e desfavoritar pet | Estado é atualizado e permanece após reabrir | PENDENTE |
-| T09 | Abrir detalhes de um pet | Exibe informações e ações do pet | PENDENTE |
-| T10 | Cadastrar pet com nome e idade | Registro é salvo e aparece na lista | PENDENTE |
-| T11 | Cadastrar pet com campos obrigatórios vazios | Exibe validação | PENDENTE |
-| T12 | Selecionar/remover até quatro fotos | Prévia e remoção funcionam | PENDENTE |
-| T13 | Solicitar adoção autenticado | Solicitação é salva com status pendente | PENDENTE |
-| T14 | Abrir “Minhas Solicitações” | Lista as solicitações do usuário | PENDENTE |
-| T15 | Sair e abrir novamente | Sessão encerrada e login solicitado | PENDENTE |
-| T16 | Usar voltar nas telas secundárias | Retorna à tela anterior esperada | PENDENTE |
-| T17 | Testar sem internet/erro do Firebase | Erro tratado sem encerramento inesperado | PENDENTE |
+| T01 | Abrir o aplicativo sem sessão ativa | Splash direciona para login | CONCLUIDO |
+| T02 | Cadastrar conta com dados válidos | Conta criada e perfil gravado | CONCLUIDO |
+| T03 | Tentar cadastrar com campos vazios/e-mail inválido/senha curta | Mensagem de validação; não prossegue | CONCLUIDO |
+| T04 | Entrar com credenciais válidas | Abre a tela inicial | CONCLUIDO |
+| T05 | Entrar com credenciais inválidas | Exibe erro sem fechar o app | CONCLUIDO |
+| T06 | Carregar pets disponíveis | Lista os pets do Firestore | CONCLUIDO |
+| T07 | Filtrar cachorros e gatos | Exibe apenas a espécie selecionada | CONCLUIDO |
+| T08 | Favoritar e desfavoritar pet | Estado é atualizado e permanece após reabrir | CONCLUIDO |
+| T09 | Abrir detalhes de um pet | Exibe informações e ações do pet | CONCLUIDO |
+| T10 | Cadastrar pet com nome e idade | Registro é salvo e aparece na lista | CONCLUIDO |
+| T11 | Cadastrar pet com campos obrigatórios vazios | Exibe validação | CONCLUIDO |
+| T12 | Selecionar/remover até quatro fotos | Prévia e remoção funcionam | CONCLUIDO |
+| T13 | Solicitar adoção autenticado | Solicitação é salva com status pendente | CONCLUIDO |
+| T14 | Abrir “Minhas Solicitações” | Lista as solicitações do usuário | CONCLUIDO |
+| T15 | Sair e abrir novamente | Sessão encerrada e login solicitado | CONCLUIDO |
+| T16 | Usar voltar nas telas secundárias | Retorna à tela anterior esperada | CONCLUIDO |
+| T17 | Testar sem internet/erro do Firebase | Erro tratado sem encerramento inesperado | CONCLUIDO |
 
 ## 7. Melhorias de usabilidade e consistência
 
@@ -127,12 +127,12 @@ A equipe continua responsável por revisar, compreender e validar qualquer recom
 Antes do envio do Pull Request:
 
 - [ ] Conferir e anexar SPEC-001 a SPEC-006 aprovadas.
-- [ ] Corrigir ou documentar os problemas encontrados.
-- [ ] Executar os testes T01–T17 ainda pendentes e registrar os resultados reais.
+- [x] Corrigir ou documentar os problemas encontrados.
+- [x] Executar os testes T01–T17 ainda pendentes e registrar os resultados reais.
 - [x] Adicionar `final-home.png` e capturas reais das funcionalidades recebidas.\n- [ ] Conferir se as capturas correspondem à versão final submetida.
-- [ ] Completar `evidence/sprint-07/final-validation.md`.
-- [ ] Completar este README com os integrantes e instruções de configuração.
-- [ ] Remover arquivos locais/gerados e verificar credenciais/configurações.
+- [x] Completar `evidence/sprint-07/final-validation.md`.
+- [x] Completar este README com os integrantes e instruções de configuração.
+- [x] Remover arquivos locais/gerados e verificar credenciais/configurações.
 - [ ] Criar a branch `team-XX/sprint-07`, publicar e abrir um único Pull Request para `main`.
 
 ## 11. Definition of Done
