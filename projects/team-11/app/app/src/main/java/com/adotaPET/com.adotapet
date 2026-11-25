@@ -1,0 +1,23 @@
+com.adotapet
+│
+├── MainActivity.kt
+│
+├── navigation/
+│   └── AppNavigation.kt
+│
+├── ui/
+│   ├── screens/
+│   │   ├── SplashScreen.kt
+│   │   ├── LoginScreen.kt
+│   │   ├── RegisterScreen.kt
+│   │   └── HomeScreen.kt
+│   │
+│   ├── components/
+│   │   └── PetTextField.kt
+│   │
+│   └── theme/
+│       └── Color.kt
+│
+└── data/
+    └── model/
+        └── User.kt
